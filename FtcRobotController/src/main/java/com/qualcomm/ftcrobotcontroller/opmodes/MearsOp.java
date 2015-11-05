@@ -19,6 +19,7 @@ public class MearsOp extends OpMode {
      * Note: the configuration of the servos is such that
      * as the arm servo approaches 0, the arm position moves up (away from the floor).
      * Also, as the claw servo approaches 0, the claw opens up (drops the game element).
+     * mrs m change
      */
 
 
@@ -73,7 +74,7 @@ public class MearsOp extends OpMode {
         //float direction = Test;
         float left = gamepad1.right_stick_y;
         float right = gamepad1.left_stick_y;
-        float arm = -gamepad2.right_stick_y;
+        float arm = -gamepad1.right_trigger;
 
         // clip the right/left values so that the values never exceed +/- 1
         right = Range.clip(right, -1, 1);
