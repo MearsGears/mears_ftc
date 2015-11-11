@@ -51,7 +51,6 @@ public class MearsOp extends OpMode {
         arm_motor = hardwareMap.dcMotor.get("arm");
         right_motor = hardwareMap.dcMotor.get("right_drive");
         left_motor = hardwareMap.dcMotor.get("left_drive");
-        left_motor.setDirection(DcMotor.Direction.REVERSE);
         right_motor.setDirection(DcMotor.Direction.REVERSE);
 
     }
