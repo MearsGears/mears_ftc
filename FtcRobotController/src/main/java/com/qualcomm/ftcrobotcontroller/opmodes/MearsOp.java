@@ -98,8 +98,8 @@ public class MearsOp extends OpMode {
         //float direction = gamepad1.right_stick_x; //this is for 1joy
         //float throttle = -Test;
         //float direction = Test;
-        float right = gamepad1.right_stick_y;
-        float left = gamepad1.left_stick_y;
+        float left = gamepad1.right_stick_y;
+        float right = gamepad1.left_stick_y;
         float arm = -gamepad2.right_stick_y;
 
 
