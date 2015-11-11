@@ -20,11 +20,30 @@ public class MearsOp extends OpMode {
      * as the arm servo approaches 0, the arm position moves up (away from the floor).
      * Also, as the claw servo approaches 0, the claw opens up (drops the game element).
      */
+// TETRIX VALUES.
+    final static double ARMSERV_MIN_RANGE  = 0.20;
+    final static double ARMSERV_MAX_RANGE  = 0.90;
+    final static double CLAW_MIN_RANGE  = 0.20;
+    final static double CLAW_MAX_RANGE  = 0.7;
+
+    // position of the arm servo.
+    double armservPosition;
+
+    // amount to change the arm servo position.
+    double armservDelta = 0.1;
+
+    // position of the claw servo
+    double clawPosition;
+
+    // amount to change the claw servo position by
+    double clawDelta = 0.1;
 
 
     DcMotor right_motor;
     DcMotor left_motor;
     DcMotor arm_motor;
+    Servo claw;
+    Servo armserv;
 
     /**
      * Constructor
@@ -51,8 +70,15 @@ public class MearsOp extends OpMode {
         arm_motor = hardwareMap.dcMotor.get("arm");
         right_motor = hardwareMap.dcMotor.get("right_drive");
         left_motor = hardwareMap.dcMotor.get("left_drive");
+        armserv = hardwareMap.servo.get("servo_1");
+        claw = hardwareMap.servo.get("servo_6");
+
         left_motor.setDirection(DcMotor.Direction.REVERSE);
-        right_motor.setDirection(DcMotor.Direction.REVERSE);
+        //right_motor.setDirection(DcMotor.Direction.REVERSE);
+
+        // assign the starting position of the wrist and claw
+        armservPosition = 0.2;
+        clawPosition = 0.2;
 
     }
 
@@ -63,7 +89,8 @@ public class MearsOp extends OpMode {
      */
 
     @Override
-    public void loop() {
+    public void loop()
+    {
 
 
 
@@ -75,10 +102,13 @@ public class MearsOp extends OpMode {
         float left = gamepad1.left_stick_y;
         float arm = -gamepad2.right_stick_y;
 
+
         // clip the right/left values so that the values never exceed +/- 1
         right = Range.clip(right, -1, 1);
         left = Range.clip(left, -1, 1);
         arm = Range.clip(arm, -1, 1);
+
+
         // scale the joystick value to make it easier to control
         // the robot more precisely at slower speeds.
         right = (float) scaleInput(right);
@@ -90,35 +120,38 @@ public class MearsOp extends OpMode {
         arm_motor.setPower(arm);
 
 
+ // get the corresponding index for the scaleInput array.
+       // update the position of the arm.
+		if (gamepad2.a) {
+			// if the A button is pushed on gamepad2, increment the position of
+			// the arm servo.
+			armservPosition += armservDelta;
+		}
 
+		if (gamepad2.y) {
+			// if the Y button is pushed on gamepad2, decrease the position of
+			// the arm servo.
+			armservPosition -= armservDelta;
+		}
 
-        telemetry.addData("left tgt pwr", "left  pwr: " + String.format("%.2f", left));
-        telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
-        telemetry.addData("arm tgt pwr", "arm pwr: " + String.format("%.2f", arm));
-    }
+		// update the position of the claw
+		if (gamepad2.x) {
+			clawPosition += clawDelta;
+		}
 
+		if (gamepad2.b) {
+			clawPosition -= clawDelta;
+		}
 
-    /*
-     * Code to run when the op mode is first disabled goes here
-     *
-     * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#stop()
-     */
-    @Override
-    public void stop() {
+        // clip the position values so that they never exceed their allowed range.
+        armservPosition = Range.clip(armservPosition, ARMSERV_MIN_RANGE, ARMSERV_MAX_RANGE);
+        clawPosition = Range.clip(clawPosition, CLAW_MIN_RANGE, CLAW_MAX_RANGE);
 
-    }
+		// write position values to the wrist and claw servo
+		armserv.setPosition(armservPosition);
+		claw.setPosition(clawPosition);
 
-    /*
-     * This method scales the joystick input so for low joystick values, the
-     * scaled value is less than linear.  This is to make it easier to drive
-     * the robot more precisely at slower speeds.
-     */
-    double scaleInput(double dVal)  {
-        double[] scaleArray = { 0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
-                0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00 };
-
-        // get the corresponding index for the scaleInput array.
-        int index = (int) (dVal * 16.0);
+ int index = (int) (dVal * 16.0);
         if (index < 0) {
             index = -index;
         } else if (index > 16) {
