@@ -140,10 +140,12 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		float direction = gamepad1.left_stick_x;
 		float right = throttle - direction;
 		float left = throttle + direction;
+		float arm = gamepad2.right_stick_y;
 
 		// clip the right/left values so that the values never exceed +/- 1
 		right = Range.clip(right, -1, 1);
 		left = Range.clip(left, -1, 1);
+		arm = Range.clip(arm, -1, 1);
 
 		// scale the joystick value to make it easier to control
 		// the robot more precisely at slower speeds.
@@ -153,26 +155,26 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		// write the values to the motors
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
-
+        arm_motor.setPower(arm);
 		// update the position of the armservo.
-		if (gamepad1.a) {
+		if (gamepad2.a) {
 			// if the A button is pushed on gamepad1, increment the position of
 			// the armservo servo.
 			armservoPosition += armservoDelta;
 		}
 
-		if (gamepad1.y) {
+		if (gamepad2.y) {
 			// if the Y button is pushed on gamepad1, decrease the position of
 			// the armservo servo.
 			armservoPosition -= armservoDelta;
 		}
 
 		// update the position of the claw
-		if (gamepad1.x) {
+		if (gamepad2.x) {
 			clawPosition += clawDelta;
 		}
 
-		if (gamepad1.b) {
+		if (gamepad2.b) {
 			clawPosition -= clawDelta;
 		}
 
@@ -197,7 +199,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
         telemetry.addData("claw", "claw:  " + String.format("%.2f", clawPosition));
         telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
         telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
-
+		telemetry.addData("arm tgt pwr", "arm pwr: " + String.format("%.2f", arm));
 	}
 
 	/*
@@ -217,8 +219,8 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 	 * the robot more precisely at slower speeds.
 	 */
 	double scaleInput(double dVal)  {
-		double[] scaleArray = { 0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
-				0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00 };
+		double[] scaleArray = { 0.0, 0.000009, 0.01, 0.02, 0.05, 0.07, 0.09, 0.10, 0.12, 0.15, 0.18, 0.21, 0.24, 0.28,
+				0.30, 0.36, 0.43, 0.47, 0.50, 0.55, 0.60, 0.66, 0.72, 0.85, 1.00, 1.00 };
 		
 		// get the corresponding index for the scaleInput array.
 		int index = (int) (dVal * 16.0);
