@@ -161,18 +161,18 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 			armservoPosition += armservoDelta;
 		}
 
-		if (gamepad1.y) {
+		if (gamepad1.b) {
 			// if the Y button is pushed on gamepad1, decrease the position of
 			// the armservo servo.
 			armservoPosition -= armservoDelta;
 		}
 
 		// update the position of the claw
-		if (gamepad1.x) {
+		if (gamepad1.b) {
 			clawPosition += clawDelta;
 		}
 
-		if (gamepad1.b) {
+		if (gamepad1.a) {
 			clawPosition -= clawDelta;
 		}
 
