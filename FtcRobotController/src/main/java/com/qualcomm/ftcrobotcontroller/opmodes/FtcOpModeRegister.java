@@ -57,7 +57,13 @@ public class FtcOpModeRegister implements OpModeRegister {
 
       manager.register("TeleOp", MearsOp.class);
       manager.register("Mears", MearsK9TeleOpServos.class);
+<<<<<<< HEAD
       manager.register("JakeTeleOp", JakeMearsK9TeleOpServos.class);
+=======
+      manager.register("TicusOp", Ticus_MearsK9TeleOpServos.class);
+
+
+>>>>>>> origin/master
    /* manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
     manager.register("K9TeleOp", K9TeleOp.class);
     manager.register ("PushBotAuto", PushBotAuto.class);
