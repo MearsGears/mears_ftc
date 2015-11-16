@@ -141,6 +141,7 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 		float right = throttle - direction;
 		float left = throttle + direction;
 
+
 		// clip the right/left values so that the values never exceed +/- 1
 		right = Range.clip(right, -1, 1);
 		left = Range.clip(left, -1, 1);
@@ -155,24 +156,40 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 		motorLeft.setPower(left);
 
 		// update the position of the armservo.
+<<<<<<< HEAD
 		if (gamepad1.b) {
+=======
+		if (gamepad2.a) {
+>>>>>>> origin/master
 			// if the A button is pushed on gamepad1, increment the position of
 			// the armservo servo.
 			armservoPosition += armservoDelta;
 		}
 
+<<<<<<< HEAD
 		if (gamepad1.x) {
+=======
+		if (gamepad2.b) {
+>>>>>>> origin/master
 			// if the Y button is pushed on gamepad1, decrease the position of
 			// the armservo servo.
 			armservoPosition -= armservoDelta;
 		}
 
 		// update the position of the claw
+<<<<<<< HEAD
 		if (gamepad1.b) {
 			clawPosition += clawDelta;
 		}
 
 		if (gamepad1.x) {
+=======
+		if (gamepad2.b) {
+			clawPosition += clawDelta;
+		}
+
+		if (gamepad2.a) {
+>>>>>>> origin/master
 			clawPosition -= clawDelta;
 		}
 
