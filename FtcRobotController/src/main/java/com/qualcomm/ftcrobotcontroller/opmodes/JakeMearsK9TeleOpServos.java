@@ -31,11 +31,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import android.hardware.Sensor;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
@@ -75,7 +72,6 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 	Servo claw;
 	Servo armservo;
 
-
 	/**
 	 * Constructor
 	 */
@@ -111,10 +107,8 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		arm_motor = hardwareMap.dcMotor.get("arm");
 		motorRight = hardwareMap.dcMotor.get("right_drive");
 		motorLeft = hardwareMap.dcMotor.get("left_drive");
-        motorRight.setDirection(DcMotor.Direction.REVERSE);
-		arm_motor.setDirection(DcMotor.Direction.REVERSE);
-
-
+		motorRight.setDirection(DcMotor.Direction.REVERSE);
+		
 		armservo = hardwareMap.servo.get("servo_1");
 		claw = hardwareMap.servo.get("servo_6");
 
@@ -163,24 +157,24 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		motorLeft.setPower(left);
         arm_motor.setPower(arm);
 		// update the position of the armservo.
-		if (gamepad2.x) {
+		if (gamepad2.a) {
 			// if the A button is pushed on gamepad1, increment the position of
 			// the armservo servo.
 			armservoPosition += armservoDelta;
 		}
 
-		if (gamepad2.b) {
+		if (gamepad2.y) {
 			// if the Y button is pushed on gamepad1, decrease the position of
 			// the armservo servo.
 			armservoPosition -= armservoDelta;
 		}
 
 		// update the position of the claw
-		if (gamepad2.b  ) {
+		if (gamepad2.x) {
 			clawPosition += clawDelta;
 		}
 
-		if (gamepad2.x) {
+		if (gamepad2.b) {
 			clawPosition -= clawDelta;
 		}
 
@@ -225,16 +219,11 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 	 * the robot more precisely at slower speeds.
 	 */
 	double scaleInput(double dVal)  {
-		double[] scaleArray = { 0.0, 0.01, 0.09, 0.09, 0.09, 0.09, 0.01, 0.02, 0.05, 0.07, 0.09, 0.10, 0.12, 0.15, 0.18, 0.21, 0.24, 0.28,
-				0.30, 0.36, 0.43, 0.47, 0.50, 0.55, 0.60, 0.66, 0.72, 0.85, 0.90, 0.96, 1.00, 1.00, 1.50, 2.00, 5.00, 7.00, 16.00, 16.00 };
+		double[] scaleArray = { 0.0, 0.000009, 0.01, 0.02, 0.05, 0.07, 0.09, 0.10, 0.12, 0.15, 0.18, 0.21, 0.24, 0.28,
+				0.30, 0.36, 0.43, 0.47, 0.50, 0.55, 0.60, 0.66, 0.72, 0.85, 1.00, 1.00 };
 		
 		// get the corresponding index for the scaleInput array.
-        int index = (int) (dVal * 16.0);
-        if (index < 0) {
-            index = -index;
-        } else if (index > 16) {
-            index = 16;
-        }
+		int index = (int) (dVal * 16.0);
 		
 		// index should be positive.
 		if (index < 0) {
