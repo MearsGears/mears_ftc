@@ -155,13 +155,13 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 		motorLeft.setPower(left);
 
 		// update the position of the armservo.
-		if (gamepad1.a) {
+		if (gamepad1.b) {
 			// if the A button is pushed on gamepad1, increment the position of
 			// the armservo servo.
 			armservoPosition += armservoDelta;
 		}
 
-		if (gamepad1.b) {
+		if (gamepad1.x) {
 			// if the Y button is pushed on gamepad1, decrease the position of
 			// the armservo servo.
 			armservoPosition -= armservoDelta;
@@ -172,7 +172,7 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 			clawPosition += clawDelta;
 		}
 
-		if (gamepad1.a) {
+		if (gamepad1.x) {
 			clawPosition -= clawDelta;
 		}
 
