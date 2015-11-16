@@ -75,13 +75,13 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 	/**
 	 * Constructor
 	 */
-	public Ticus_MearsK9TeleOpServos() {
+	public JakeMearsK9TeleOpServos() {
 
 	}
 
 	/*
 	 * Code to run when the op mode is first enabled goes here
-	 * 
+	 *
 	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#start()
 	 */
 	@Override
@@ -93,13 +93,13 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 		 * that the names of the devices must match the names used when you
 		 * configured your robot and created the configuration file.
 		 */
-		
+
 		/*
 		 * For the demo Tetrix K9 bot we assume the following,
 		 *   There are two motors "left_drive" and "right_drive"
 		 *   "left_drive" is on the right side of the bot.
 		 *   "right_drive" is on the left side of the bot and reversed.
-		 *   
+		 *
 		 * We also assume that there are two servos "servo_1" and "servo_6"
 		 *    "servo_1" controls the armservo joint of the manipulator.
 		 *    "servo_6" controls the claw joint of the manipulator.
@@ -108,7 +108,7 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 		motorRight = hardwareMap.dcMotor.get("right_drive");
 		motorLeft = hardwareMap.dcMotor.get("left_drive");
 		motorRight.setDirection(DcMotor.Direction.REVERSE);
-		
+
 		armservo = hardwareMap.servo.get("servo_1");
 		claw = hardwareMap.servo.get("servo_6");
 
@@ -119,7 +119,7 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 
 	/*
 	 * This method will be called repeatedly in a loop
-	 * 
+	 *
 	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#run()
 	 */
 	@Override
@@ -127,7 +127,7 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 
 		/*
 		 * Gamepad 1
-		 * 
+		 *
 		 * Gamepad 1 controls the motors via the left stick, and it controls the
 		 * wrist/claw via the a,b, x, y buttons
 		 */
@@ -140,74 +140,47 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 		float direction = gamepad1.left_stick_x;
 		float right = throttle - direction;
 		float left = throttle + direction;
-
+		float arm = gamepad2.right_stick_y;
 
 		// clip the right/left values so that the values never exceed +/- 1
 		right = Range.clip(right, -1, 1);
 		left = Range.clip(left, -1, 1);
+		arm = Range.clip(arm, -1, 1);
 
 		// scale the joystick value to make it easier to control
 		// the robot more precisely at slower speeds.
 		right = (float)scaleInput(right);
 		left =  (float)scaleInput(left);
-		
+
 		// write the values to the motors
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
-
+		arm_motor.setPower(arm);
 		// update the position of the armservo.
-<<<<<<< HEAD
-
-		if (gamepad1.b) {
-
 		if (gamepad2.a) {
-
-=======
-		if (gamepad1.a) {
->>>>>>> parent of c2931da... working robot changes
 			// if the A button is pushed on gamepad1, increment the position of
 			// the armservo servo.
 			armservoPosition += armservoDelta;
 		}
 
-<<<<<<< HEAD
-
-		if (gamepad1.x) {
-
-		if (gamepad2.b) {
-
-=======
-		if (gamepad1.b) {
->>>>>>> parent of c2931da... working robot changes
+		if (gamepad2.y) {
 			// if the Y button is pushed on gamepad1, decrease the position of
 			// the armservo servo.
 			armservoPosition -= armservoDelta;
 		}
 
 		// update the position of the claw
-<<<<<<< HEAD
-		if (gamepad1.b) {
+		if (gamepad2.x) {
 			clawPosition += clawDelta;
 		}
 
-<<<<<<< HEAD
-		if (gamepad1.x) {
-=======
 		if (gamepad2.b) {
-			clawPosition += clawDelta;
-		}
-
-		if (gamepad2.a) {
->>>>>>> origin/master
-=======
-		if (gamepad1.a) {
->>>>>>> parent of c2931da... working robot changes
 			clawPosition -= clawDelta;
 		}
 
-        // clip the position values so that they never exceed their allowed range.
-        armservoPosition = Range.clip(armservoPosition, armservo_MIN_RANGE, armservo_MAX_RANGE);
-        clawPosition = Range.clip(clawPosition, CLAW_MIN_RANGE, CLAW_MAX_RANGE);
+		// clip the position values so that they never exceed their allowed range.
+		armservoPosition = Range.clip(armservoPosition, armservo_MIN_RANGE, armservo_MAX_RANGE);
+		clawPosition = Range.clip(clawPosition, CLAW_MIN_RANGE, CLAW_MAX_RANGE);
 
 		// write position values to the wrist and claw servo
 		armservo.setPosition(armservoPosition);
@@ -221,17 +194,17 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 		 * will return a null value. The legacy NXT-compatible motor controllers
 		 * are currently write only.
 		 */
-        telemetry.addData("Text", "*** Robot Data***");
-        telemetry.addData("armservo", "armservo:  " + String.format("%.2f", armservoPosition));
-        telemetry.addData("claw", "claw:  " + String.format("%.2f", clawPosition));
-        telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
-        telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
-
+		telemetry.addData("Text", "*** Robot Data***");
+		telemetry.addData("armservo", "armservo:  " + String.format("%.2f", armservoPosition));
+		telemetry.addData("claw", "claw:  " + String.format("%.2f", clawPosition));
+		telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
+		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
+		telemetry.addData("arm tgt pwr", "arm pwr: " + String.format("%.2f", arm));
 	}
 
 	/*
 	 * Code to run when the op mode is first disabled goes here
-	 * 
+	 *
 	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#stop()
 	 */
 	@Override
@@ -239,19 +212,19 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 
 	}
 
-    	
+
 	/*
-	 * This method scales the joystick input so for low joystick values, the 
+	 * This method scales the joystick input so for low joystick values, the
 	 * scaled value is less than linear.  This is to make it easier to drive
 	 * the robot more precisely at slower speeds.
 	 */
 	double scaleInput(double dVal)  {
-		double[] scaleArray = { 0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
-				0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00 };
-		
+		double[] scaleArray = { 0.0, 0.000009, 0.01, 0.02, 0.05, 0.07, 0.09, 0.10, 0.12, 0.15, 0.18, 0.21, 0.24, 0.28,
+				0.30, 0.36, 0.43, 0.47, 0.50, 0.55, 0.60, 0.66, 0.72, 0.85, 1.00, 1.00 };
+
 		// get the corresponding index for the scaleInput array.
 		int index = (int) (dVal * 16.0);
-		
+
 		// index should be positive.
 		if (index < 0) {
 			index = -index;
