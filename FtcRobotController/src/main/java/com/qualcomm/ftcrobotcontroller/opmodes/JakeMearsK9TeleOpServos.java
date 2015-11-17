@@ -53,7 +53,9 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 	final static double armservo_MAX_RANGE  = 0.90;
 	final static double CLAW_MIN_RANGE  = 0.20;
 	final static double CLAW_MAX_RANGE  = 0.7;
-
+	final static double armextend_MIN_RANGE = 0.00;
+	final static double armextend_MAX_RANGE = 1.00;
+	final static double armextend2_MIN_RANGE = 0.00;
 	// position of the armservo servo.
 	double armservoPosition;
 
@@ -71,6 +73,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 	DcMotor arm_motor;
 	Servo claw;
 	Servo armservo;
+	Servo armextend;
 
 	/**
 	 * Constructor
@@ -234,6 +237,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		if (index > 16) {
 			index = 16;
 		}
+
 
 		// get value from the array.
 		double dScale = 0.0;

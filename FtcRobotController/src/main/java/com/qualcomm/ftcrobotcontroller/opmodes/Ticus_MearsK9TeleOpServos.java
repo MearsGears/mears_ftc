@@ -75,7 +75,7 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 	/**
 	 * Constructor
 	 */
-	public JakeMearsK9TeleOpServos() {
+	public Ticus_MearsK9TeleOpServos() {
 
 	}
 
