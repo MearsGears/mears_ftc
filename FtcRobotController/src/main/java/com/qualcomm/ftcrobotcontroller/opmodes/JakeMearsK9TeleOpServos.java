@@ -54,21 +54,26 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 	final static double armservo_MIN_RANGE  = 0.20;
 	final static double armservo_MAX_RANGE  = 0.90;
 	final static double CLAW_MIN_RANGE  = 0.20;
-	final static double CLAW_MAX_RANGE  = 0.7;
+	final static double CLAW_MAX_RANGE  = 0.90;
 	final static double armextend_MIN_RANGE = 0.00;
 	final static double armextend_MAX_RANGE = 1.00;
 	final static double armextend2_MIN_RANGE = 0.00;
+	final static double armextend2_MAX_RANGE = 1.00;
 	// position of the armservo servo.
-	double armservoPosition;
+	double armextendPosition;
+    double armextendDelta;
+    double armextend2Position;
+    double armextend2Delta;
+    double armservoPosition;
 
 	// amount to change the armservo servo position.
-	double armservoDelta = 0.1;
+	double armservoDelta = 0.2;
 
 	// position of the claw servo
 	double clawPosition;
 
 	// amount to change the claw servo position by
-	double clawDelta = 0.1;
+	double clawDelta = 0.2;
 
 	DcMotor motorRight;
 	DcMotor motorLeft;
@@ -76,7 +81,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 	Servo claw;
 	Servo armservo;
 	Servo armextend;
-
+	Servo armextend2;
 	/**
 	 * Constructor
 	 */
@@ -116,10 +121,13 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		
 		armservo = hardwareMap.servo.get("servo_1");
 		claw = hardwareMap.servo.get("servo_6");
-
+		armextend = hardwareMap.servo.get("servo_2");
+		armextend2 = hardwareMap.servo.get("servo_3");
 		// assign the starting position of the wrist and claw
 		armservoPosition = 0.2;
 		clawPosition = 0.2;
+		armextendPosition = 0.0;
+		armextend2Position = 0.0;
 	}
 
 	/*
