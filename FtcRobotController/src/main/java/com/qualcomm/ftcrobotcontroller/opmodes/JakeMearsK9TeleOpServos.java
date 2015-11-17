@@ -36,7 +36,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-/**
+/**				--Jake!!!! JAKE!!!! JAKE!!!
+ CREATE ANOTHER JAKE FILE CALLED : JakeK9AUtoTime.....and adapt it to our program...so we have an autonomous program
+ MrsM think you can do it!!!!!
  * TeleOp Mode
  * <p>
  * Enables control of the robot via the gamepad
