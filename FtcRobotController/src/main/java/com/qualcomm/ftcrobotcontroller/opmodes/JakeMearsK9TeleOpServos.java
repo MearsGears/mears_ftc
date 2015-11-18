@@ -164,6 +164,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		motorLeft.setPower(left);
         arm_motor.setPower(arm);
 
+
 		// update the position of the armservo.
 		if (gamepad2.a) {
 			// if the A button is pushed on gamepad1, increment the position of
