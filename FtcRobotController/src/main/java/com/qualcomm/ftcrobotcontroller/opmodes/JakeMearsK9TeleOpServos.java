@@ -55,15 +55,9 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 	final static double armservo_MAX_RANGE  = 0.90;
 	final static double CLAW_MIN_RANGE  = 0.20;
 	final static double CLAW_MAX_RANGE  = 0.90;
-	final static double armextend_MIN_RANGE = 0.00;
-	final static double armextend_MAX_RANGE = 1.00;
-	final static double armextend2_MIN_RANGE = 0.00;
-	final static double armextend2_MAX_RANGE = 1.00;
+
 	// position of the armservo servo.
-	double armextendPosition;
-    double armextendDelta;
-    double armextend2Position;
-    double armextend2Delta;
+
     double armservoPosition;
 
 	// amount to change the armservo servo position.
@@ -78,10 +72,9 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 	DcMotor motorRight;
 	DcMotor motorLeft;
 	DcMotor arm_motor;
+    DcMotor arm_extend;
 	Servo claw;
 	Servo armservo;
-	Servo armextend;
-	Servo armextend2;
 	/**
 	 * Constructor
 	 */
@@ -118,16 +111,15 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		motorRight = hardwareMap.dcMotor.get("right_drive");
 		motorLeft = hardwareMap.dcMotor.get("left_drive");
 		motorRight.setDirection(DcMotor.Direction.REVERSE);
-		
+        arm_extend = hardwareMap.dcMotor.get("arm_drive");
+
 		armservo = hardwareMap.servo.get("servo_1");
 		claw = hardwareMap.servo.get("servo_6");
-		armextend = hardwareMap.servo.get("servo_2");
-		armextend2 = hardwareMap.servo.get("servo_3");
+
 		// assign the starting position of the wrist and claw
 		armservoPosition = 0.2;
 		clawPosition = 0.2;
-		armextendPosition = 0.0;
-		armextend2Position = 0.0;
+
 	}
 
 	/*
@@ -154,12 +146,14 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		float right = throttle - direction;
 		float left = throttle + direction;
 		float arm = gamepad2.right_stick_y;
+        float arm_drive = gamepad2.left_stick_y;
+
 
 		// clip the right/left values so that the values never exceed +/- 1
 		right = Range.clip(right, -1, 1);
 		left = Range.clip(left, -1, 1);
 		arm = Range.clip(arm, -1, 1);
-
+        arm_drive = Range.clip(arm_drive, -1, 1);
 		// scale the joystick value to make it easier to control
 		// the robot more precisely at slower speeds.
 		right = (float)scaleInput(right);
@@ -169,6 +163,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
         arm_motor.setPower(arm);
+
 		// update the position of the armservo.
 		if (gamepad2.a) {
 			// if the A button is pushed on gamepad1, increment the position of
