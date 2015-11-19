@@ -230,7 +230,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 	 * the robot more precisely at slower speeds.
 	 */
 	double scaleInput(double dVal)  {
-		double[] scaleArray = { 0.0, 0.009, 0.01, 0.02, 0.03, 0.04, 0.05, 0.07, 0.09, 0.10, 0.12, 0.15, 0.18, 0.21, 0.24, 0.28,
+		double[] scaleArray = { 0.0, 0.009, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.12, 0.14, 0.15, 0.18, 0.19, 0.21, 0.22, 0.24, 0.25, 0.28,
 				0.30, 0.36, 0.43, 0.47, 0.50, 0.55, 0.60, 0.66, 0.72, 0.85, 1.00, 1.00 };
 		
 		// get the corresponding index for the scaleInput array.
