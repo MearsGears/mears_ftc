@@ -187,7 +187,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 			clawPosition -= clawDelta;
 		}
 
-        // clip the position values so that they never exceed their allowed range.
+        // clip the position values so that they never exceed their allowed range. hello
         armservoPosition = Range.clip(armservoPosition, armservo_MIN_RANGE, armservo_MAX_RANGE);
         clawPosition = Range.clip(clawPosition, CLAW_MIN_RANGE, CLAW_MAX_RANGE);
 
