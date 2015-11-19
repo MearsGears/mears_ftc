@@ -211,6 +211,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
         telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
         telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
 		telemetry.addData("arm tgt pwr", "arm pwr: " + String.format("%.2f", arm));
+		telemetry.addData("arm_drive tgt pwr", "arm_drive pwr: "+ String.format("%.2f\", arm"));
 	}
 
 	/*
