@@ -111,6 +111,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		motorRight = hardwareMap.dcMotor.get("right_drive");
 		motorLeft = hardwareMap.dcMotor.get("left_drive");
 		motorRight.setDirection(DcMotor.Direction.REVERSE);
+		arm_motor.setDirection(DcMotor.Direction.REVERSE);
         arm_extend = hardwareMap.dcMotor.get("arm_drive");
 
 		armservo = hardwareMap.servo.get("servo_1");
@@ -163,27 +164,28 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
         arm_motor.setPower(arm);
+		arm_extend.setPower(arm_drive);
 
 
 		// update the position of the armservo.
-		if (gamepad2.a) {
+		if (gamepad2.right_bumper) {
 			// if the A button is pushed on gamepad1, increment the position of
 			// the armservo servo.
 			armservoPosition += armservoDelta;
 		}
 
-		if (gamepad2.y) {
+		if (gamepad2.left_bumper) {
 			// if the Y button is pushed on gamepad1, decrease the position of
 			// the armservo servo.
 			armservoPosition -= armservoDelta;
 		}
 
 		// update the position of the claw
-		if (gamepad2.x) {
+		if (gamepad2.left_bumper) {
 			clawPosition += clawDelta;
 		}
 
-		if (gamepad2.b) {
+		if (gamepad2.right_bumper) {
 			clawPosition -= clawDelta;
 		}
 
@@ -228,7 +230,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 	 * the robot more precisely at slower speeds.
 	 */
 	double scaleInput(double dVal)  {
-		double[] scaleArray = { 0.0, 0.000009, 0.01, 0.02, 0.05, 0.07, 0.09, 0.10, 0.12, 0.15, 0.18, 0.21, 0.24, 0.28,
+		double[] scaleArray = { 0.0, 0.009, 0.01, 0.02, 0.03, 0.04, 0.05, 0.07, 0.09, 0.10, 0.12, 0.15, 0.18, 0.21, 0.24, 0.28,
 				0.30, 0.36, 0.43, 0.47, 0.50, 0.55, 0.60, 0.66, 0.72, 0.85, 1.00, 1.00 };
 		
 		// get the corresponding index for the scaleInput array.
