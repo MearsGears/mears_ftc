@@ -38,16 +38,19 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 
 public class DianeEncoderTryMearsK9TeleOpServos extends OpMode {
-
+    // creating the variables  and formulas to use the encoders
 	final static int ENCODER_CPR = 1440;
 	final static double GEAR_RATIO = 2;
 	final static int WHEEL_DIAMETER = 4;
 	final static int DISTANCE = 36;
+    final static int DISTANCE2 = 6;
 
 	final static double CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
 	final static double ROTATIONS = DISTANCE / CIRCUMFERENCE;
 	final static double COUNTS = ENCODER_CPR * ROTATIONS * GEAR_RATIO;
 
+    final static double ROTATIONS2 = DISTANCE2 / CIRCUMFERENCE;
+    final static double COUNTS2 = ENCODER_CPR * ROTATIONS2 * GEAR_RATIO;
 
 	DcMotor motorRight;
 	DcMotor motorLeft;
@@ -129,6 +132,9 @@ public class DianeEncoderTryMearsK9TeleOpServos extends OpMode {
         telemetry.addData("Left Position", motorLeft.getCurrentPosition());
         telemetry.addData("Right Position", motorRight.getCurrentPosition());
 
+        //added because i added counts2
+
+        telemetry.addData("Motor Target", COUNTS2);
 
 	}
 
@@ -148,8 +154,47 @@ public class DianeEncoderTryMearsK9TeleOpServos extends OpMode {
         motorLeft.setPower(0.5);
         motorRight.setPower(0.5);
 
+		motorLeft.setPower(0);
+	    motorRight.setPower(0);
 
-    }
+        motorLeft.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motorRight.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+
+        //make robot turn right
+        motorLeft.setTargetPosition((int) COUNTS2);
+        motorRight.setTargetPosition((int) COUNTS2);
+
+        motorLeft.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        motorRight.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+
+        motorLeft.setPower(0.5);
+        motorRight.setPower(0);
+
+        motorLeft.setPower(0);
+        motorRight.setPower(0);
+
+        motorLeft.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motorRight.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+
+        //make robot go toward the rescue beacon to drop people
+
+        motorLeft.setTargetPosition((int) COUNTS);
+        motorRight.setTargetPosition((int) COUNTS);
+
+        motorLeft.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        motorRight.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+
+        motorLeft.setPower(0.5);
+        motorRight.setPower(0.5);
+
+        motorLeft.setPower(0);
+        motorRight.setPower(0);
+
+        motorLeft.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motorRight.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+
+
+	}
 
 
 
