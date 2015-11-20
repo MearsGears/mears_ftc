@@ -69,7 +69,7 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 	DcMotor motorRight;
 	DcMotor motorLeft;
 	DcMotor arm_motor;
-	DcMotor arm_xtend;
+	DcMotor arm_extend;
 	Servo claw;
 	Servo armservo;
 
@@ -108,7 +108,7 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 		arm_motor = hardwareMap.dcMotor.get("arm");
 		motorRight = hardwareMap.dcMotor.get("right_drive");
 		motorLeft = hardwareMap.dcMotor.get("left_drive");
-		arm_xtend = hardwareMap.dcMotor.get("extend");
+		arm_extend = hardwareMap.dcMotor.get("arm_drive");
 
 		motorRight.setDirection(DcMotor.Direction.REVERSE);
 
@@ -144,19 +144,19 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 		float right = throttle - direction;
 		float left = throttle + direction;
 		float arm = gamepad2.left_stick_y;
-		float extend = gamepad2.right_stick_y;
+		float arm_drive = gamepad2.right_stick_y;
 		// clip the right/left values so that the values never exceed +/- 1
 		right = Range.clip(right, -1, 1);
 		left = Range.clip(left, -1, 1);
 		arm = Range.clip(arm, -1, 1);
-		extend = Range.clip(extend, -1, 1);
+		arm_drive = Range.clip(arm_drive, -1, 1);
 		// scale the joystick value to make it easier to control
 		// the robot more precisely at slower speeds.
 		right = (float)scaleInput(right);
 		left =  (float)scaleInput(left);
 
 		// write the values to the motors
-		arm_xtend.setPower(extend);
+		arm_extend.setPower(arm_drive);
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
 		arm_motor.setPower(arm);
@@ -203,7 +203,7 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 		telemetry.addData("claw", "claw:  " + String.format("%.2f", clawPosition));
 		telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
 		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
-		telemetry.addData("arm tgt pwr", "arm pwr: " + String.format("%.2f", arm));
+
 	}
 
 	/*
@@ -234,13 +234,13 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 			index = -index;
 		}
 
-		// index cannot exceed size of array minus 1.
+		// index cannot exceed size of array minus 1. 
 		if (index > 16) {
 			index = 16;
 		}
 
 		// get value from the array.
-		double dScale = 0.0;
+		double dScale = 0.1;
 		if (dVal < 0) {
 			dScale = -scaleArray[index];
 		} else {
