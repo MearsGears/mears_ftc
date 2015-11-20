@@ -35,21 +35,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
 
 
-public class EncoderTryMearsK9TeleOpServos extends OpMode {
-
-	/*
-	 * Note: the configuration of the servos is such that
-	 * as the armservo servo approaches 0, the armservo position moves up (away from the floor).
-	 * Also, as the claw servo approaches 0, the claw opens up (drops the game element).
-	 */
-	// TETRIX VALUES.
-	final static double armservo_MIN_RANGE  = 0.20;
-	final static double armservo_MAX_RANGE  = 0.90;
-	final static double CLAW_MIN_RANGE  = 0.20;
-	final static double CLAW_MAX_RANGE  = 0.90;
+public class DianeEncoderTryMearsK9TeleOpServos extends OpMode {
 
 	final static int ENCODER_CPR = 1440;
 	final static double GEAR_RATIO = 2;
@@ -60,18 +48,6 @@ public class EncoderTryMearsK9TeleOpServos extends OpMode {
 	final static double ROTATIONS = DISTANCE / CIRCUMFERENCE;
 	final static double COUNTS = ENCODER_CPR * ROTATIONS * GEAR_RATIO;
 
-	// position of the armservo servo.
-
-    double armservoPosition;
-
-	// amount to change the armservo servo position.
-	double armservoDelta = 0.2;
-
-	// position of the claw servo
-	double clawPosition;
-
-	// amount to change the claw servo position by
-	double clawDelta = 0.2;
 
 	DcMotor motorRight;
 	DcMotor motorLeft;
@@ -82,7 +58,7 @@ public class EncoderTryMearsK9TeleOpServos extends OpMode {
 	/**
 	 * Constructor
 	 */
-	public EncoderTryMearsK9TeleOpServos() {
+	public DianeEncoderTryMearsK9TeleOpServos() {
 
 	}
 
@@ -121,9 +97,7 @@ public class EncoderTryMearsK9TeleOpServos extends OpMode {
 		armservo = hardwareMap.servo.get("servo_1");
 		claw = hardwareMap.servo.get("servo_6");
 
-		// assign the starting position of the wrist and claw
-		armservoPosition = 0.2;
-		clawPosition = 0.2;
+
 
         motorLeft.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motorRight.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -149,13 +123,8 @@ public class EncoderTryMearsK9TeleOpServos extends OpMode {
 		 * will return a null value. The legacy NXT-compatible motor controllers
 		 * are currently write only.
 		 */
-        telemetry.addData("Text", "*** Robot Data***");
-        telemetry.addData("armservo", "armservo:  " + String.format("%.2f", armservoPosition));
-        telemetry.addData("claw", "claw:  " + String.format("%.2f", clawPosition));
-        /*telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
-        telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
-		telemetry.addData("arm tgt pwr", "arm pwr: " + String.format("%.2f", arm));
-*/
+
+
         telemetry.addData("Motor Target", COUNTS);
         telemetry.addData("Left Position", motorLeft.getCurrentPosition());
         telemetry.addData("Right Position", motorRight.getCurrentPosition());
