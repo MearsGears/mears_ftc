@@ -69,6 +69,7 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 	DcMotor motorRight;
 	DcMotor motorLeft;
 	DcMotor arm_motor;
+	DcMotor arm_xtend;
 	Servo claw;
 	Servo armservo;
 
@@ -107,6 +108,8 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 		arm_motor = hardwareMap.dcMotor.get("arm");
 		motorRight = hardwareMap.dcMotor.get("right_drive");
 		motorLeft = hardwareMap.dcMotor.get("left_drive");
+		arm_xtend = hardwareMap.dcMotor.get("extend");
+
 		motorRight.setDirection(DcMotor.Direction.REVERSE);
 
 		armservo = hardwareMap.servo.get("servo_1");
@@ -140,19 +143,20 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 		float direction = gamepad1.left_stick_x;
 		float right = throttle - direction;
 		float left = throttle + direction;
-		float arm = gamepad2.right_stick_y;
-
+		float arm = gamepad2.left_stick_y;
+		float extend = gamepad2.right_stick_y;
 		// clip the right/left values so that the values never exceed +/- 1
 		right = Range.clip(right, -1, 1);
 		left = Range.clip(left, -1, 1);
 		arm = Range.clip(arm, -1, 1);
-
+		extend = Range.clip(extend, -1, 1);
 		// scale the joystick value to make it easier to control
 		// the robot more precisely at slower speeds.
 		right = (float)scaleInput(right);
 		left =  (float)scaleInput(left);
 
 		// write the values to the motors
+		arm_xtend.setPower(extend);
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
 		arm_motor.setPower(arm);
