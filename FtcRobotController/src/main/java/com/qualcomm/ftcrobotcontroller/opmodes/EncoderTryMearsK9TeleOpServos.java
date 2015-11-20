@@ -152,10 +152,10 @@ public class EncoderTryMearsK9TeleOpServos extends OpMode {
         telemetry.addData("Text", "*** Robot Data***");
         telemetry.addData("armservo", "armservo:  " + String.format("%.2f", armservoPosition));
         telemetry.addData("claw", "claw:  " + String.format("%.2f", clawPosition));
-        /*telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
-        telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
-		telemetry.addData("arm tgt pwr", "arm pwr: " + String.format("%.2f", arm));
-*/
+        telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", motorLeft));
+        telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", motorRight));
+		telemetry.addData("arm tgt pwr", "arm pwr: " + String.format("%.2f", arm_motor));
+		telemetry.addData("arm_drive tgt pwr", "arm_drive pwr: "+ String.format("%.2f\", arm_drive"));
         telemetry.addData("Motor Target", COUNTS);
         telemetry.addData("Left Position", motorLeft.getCurrentPosition());
         telemetry.addData("Right Position", motorRight.getCurrentPosition());

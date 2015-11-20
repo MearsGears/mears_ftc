@@ -144,48 +144,48 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		// and 1 is full right
 		float throttle = -gamepad1.left_stick_y;
 		float direction = gamepad1.left_stick_x;
-		float right = throttle - direction;
-		float left = throttle + direction;
+		float right_drive = throttle - direction;
+		float left_drive = throttle + direction;
 		float arm = gamepad2.right_stick_y;
         float arm_drive = gamepad2.left_stick_y;
 
 
 		// clip the right/left values so that the values never exceed +/- 1
-		right = Range.clip(right, -1, 1);
-		left = Range.clip(left, -1, 1);
+		right_drive = Range.clip(right_drive, -1, 1);
+		left_drive = Range.clip(left_drive, -1, 1);
 		arm = Range.clip(arm, -1, 1);
         arm_drive = Range.clip(arm_drive, -1, 1);
 		// scale the joystick value to make it easier to control
 		// the robot more precisely at slower speeds.
-		right = (float)scaleInput(right);
-		left =  (float)scaleInput(left);
+		right_drive = (float)scaleInput(right_drive);
+		left_drive =  (float)scaleInput(left_drive);
 		
 		// write the values to the motors
-		motorRight.setPower(right);
-		motorLeft.setPower(left);
+		motorRight.setPower(right_drive);
+		motorLeft.setPower(left_drive);
         arm_motor.setPower(arm);
 		arm_extend.setPower(arm_drive);
 
 
 		// update the position of the armservo.
-		if (gamepad2.right_bumper) {
+		if (gamepad2.b) {
 			// if the A button is pushed on gamepad1, increment the position of
 			// the armservo servo.
 			armservoPosition += armservoDelta;
 		}
 
-		if (gamepad2.left_bumper) {
+		if (gamepad2.x) {
 			// if the Y button is pushed on gamepad1, decrease the position of
 			// the armservo servo.
 			armservoPosition -= armservoDelta;
 		}
 
 		// update the position of the claw
-		if (gamepad2.left_bumper) {
+		if (gamepad2.x) {
 			clawPosition += clawDelta;
 		}
 
-		if (gamepad2.right_bumper) {
+		if (gamepad2.b) {
 			clawPosition -= clawDelta;
 		}
 
@@ -208,10 +208,10 @@ public class JakeMearsK9TeleOpServos extends OpMode {
         telemetry.addData("Text", "*** Robot Data***");
         telemetry.addData("armservo", "armservo:  " + String.format("%.2f", armservoPosition));
         telemetry.addData("claw", "claw:  " + String.format("%.2f", clawPosition));
-        telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
-        telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
+        telemetry.addData("left_drive tgt pwr",  "left_drive  pwr: " + String.format("%.2f", left_drive));
+        telemetry.addData("right_drive tgt pwr", "right_drive pwr: " + String.format("%.2f", right_drive));
 		telemetry.addData("arm tgt pwr", "arm pwr: " + String.format("%.2f", arm));
-		telemetry.addData("arm_drive tgt pwr", "arm_drive pwr: "+ String.format("%.2f\", arm"));
+
 	}
 
 	/*
@@ -232,7 +232,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 	 */
 	double scaleInput(double dVal)  {
 		double[] scaleArray = { 0.0, 0.009, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.12, 0.14, 0.15, 0.18, 0.19, 0.21, 0.22, 0.24, 0.25, 0.28,
-				0.30, 0.36, 0.43, 0.47, 0.50, 0.55, 0.60, 0.66, 0.72, 0.85, 1.00, 1.00 };
+				0.30, 0.36, 0.43, 0.47, 0.50, 0.55, 0.60, 0.66, 0.72, 0.85, 1.00, 2.00, 3.00 };
 		
 		// get the corresponding index for the scaleInput array.
 		int index = (int) (dVal * 16.0);

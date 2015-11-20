@@ -11,18 +11,18 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
  * is pressed.
  */
 public class PushBotDriveTouch extends LinearOpMode {
-    DcMotor leftMotor;
-    DcMotor rightMotor;
+    DcMotor motorLeft;
+    DcMotor motorRight;
     TouchSensor touchSensor;
 
     @Override
     public void runOpMode() throws InterruptedException {
         // Get references to the motors from the hardware map
-        leftMotor = hardwareMap.dcMotor.get("left_drive");
-        rightMotor = hardwareMap.dcMotor.get("right_drive");
+        motorLeft = hardwareMap.dcMotor.get("left_drive");
+        motorRight = hardwareMap.dcMotor.get("right_drive");
 
         // Reverse the right motor
-        rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        motorRight.setDirection(DcMotor.Direction.REVERSE);
 
         // Get a reference to the touch sensor
         touchSensor = hardwareMap.touchSensor.get("sensor_touch");
@@ -33,12 +33,12 @@ public class PushBotDriveTouch extends LinearOpMode {
         while(opModeIsActive()) {
             if(touchSensor.isPressed()) {
                 //Stop the motors if the touch sensor is pressed
-                leftMotor.setPower(0);
-                rightMotor.setPower(0);
+                motorLeft.setPower(0);
+                motorRight.setPower(0);
             } else {
                 //Keep driving if the touch sensor is not pressed
-                leftMotor.setPower(0.5);
-                rightMotor.setPower(0.5);
+                motorLeft.setPower(0.5);
+                motorRight.setPower(0.5);
             }
 
             telemetry.addData("isPressed", String.valueOf(touchSensor.isPressed()));
