@@ -41,7 +41,7 @@ import com.qualcomm.robotcore.util.Range;
 
 public class Ticus_MearsK9TeleOpServos extends OpMode {
 
-
+	DcMotor arm_extend;
 	DcMotor leftMotor;
 	DcMotor rightMotor;
 	DcMotor leftArm;
@@ -52,6 +52,7 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 		leftMotor = hardwareMap.dcMotor.get("left_drive");
 		rightMotor = hardwareMap.dcMotor.get("right_drive");
 		leftArm = hardwareMap.dcMotor.get("left_arm");
+		arm_extend = hardwareMap.dcMotor.get("extend");
 
 		//reverse the left motor
 		rightMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -65,20 +66,19 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
 		//note: pushing the stick all the way up returns -1, so we need to reverse the values
 		float leftY = -gamepad1.left_stick_y;
 		float rightY = -gamepad1.right_stick_y;
+		float Arm = -gamepad2.left_stick_y;
+		float extend = -gamepad2.right_stick_y;
 
 		//set the power of the motors with the gamepad values
 		leftMotor.setPower(leftY);
 		rightMotor.setPower(rightY);
+		leftArm.setPower(Arm);
+		arm_extend.setPower(extend);
 
-		if (gamepad2.y) {
-			leftArm.setPower(0.7);
-		} else if (gamepad2.a) {
-			leftArm.setPower(-0.1);
-		} else {
-			leftArm.setPower(0);
-		}
+	}
 
 
 	}
 
-}
+
+
