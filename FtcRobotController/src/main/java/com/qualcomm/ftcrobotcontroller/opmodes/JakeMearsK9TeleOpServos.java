@@ -71,7 +71,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 
 	DcMotor motorRight;
 	DcMotor motorLeft;
-	DcMotor arm_motor;
+	DcMotor leftArm;
     DcMotor arm_extend;
 	Servo claw;
 	Servo armservo;
@@ -107,11 +107,11 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		 *    "servo_1" controls the armservo joint of the manipulator.
 		 *    "servo_6" controls the claw joint of the manipulator.
 		 */
-		arm_motor = hardwareMap.dcMotor.get("arm");
+		leftArm = hardwareMap.dcMotor.get("left_arm");
 		motorRight = hardwareMap.dcMotor.get("right_drive");
 		motorLeft = hardwareMap.dcMotor.get("left_drive");
 		motorRight.setDirection(DcMotor.Direction.REVERSE);
-		arm_motor.setDirection(DcMotor.Direction.REVERSE);
+		leftArm.setDirection(DcMotor.Direction.REVERSE);
         arm_extend = hardwareMap.dcMotor.get("arm_drive");
 
 		armservo = hardwareMap.servo.get("servo_1");
@@ -146,14 +146,14 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		float direction = gamepad1.left_stick_x;
 		float right_drive = throttle - direction;
 		float left_drive = throttle + direction;
-		float arm = gamepad2.right_stick_y;
+		float left_arm = gamepad2.right_stick_y;
         float arm_drive = gamepad2.left_stick_y;
 
 
 		// clip the right/left values so that the values never exceed +/- 1
 		right_drive = Range.clip(right_drive, -1, 1);
 		left_drive = Range.clip(left_drive, -1, 1);
-		arm = Range.clip(arm, -1, 1);
+		left_arm = Range.clip(left_arm, -1, 1);
         arm_drive = Range.clip(arm_drive, -1, 1);
 		// scale the joystick value to make it easier to control
 		// the robot more precisely at slower speeds.
@@ -163,7 +163,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		// write the values to the motors
 		motorRight.setPower(right_drive);
 		motorLeft.setPower(left_drive);
-        arm_motor.setPower(arm);
+        leftArm.setPower(left_arm);
 		arm_extend.setPower(arm_drive);
 
 
@@ -210,7 +210,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
         telemetry.addData("claw", "claw:  " + String.format("%.2f", clawPosition));
         telemetry.addData("left_drive tgt pwr",  "left_drive  pwr: " + String.format("%.2f", left_drive));
         telemetry.addData("right_drive tgt pwr", "right_drive pwr: " + String.format("%.2f", right_drive));
-		telemetry.addData("arm tgt pwr", "arm pwr: " + String.format("%.2f", arm));
+		telemetry.addData("arm tgt pwr", "arm pwr: " + String.format("%.2f", left_arm));
 
 	}
 
