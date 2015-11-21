@@ -143,10 +143,8 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		// 1 is full down
 		// direction: left_stick_x ranges from -1 to 1, where -1 is full left
 		// and 1 is full right
-		float throttle = -gamepad1.left_stick_y;
-		float direction = gamepad1.left_stick_x;
-		float right_drive = throttle - direction;
-		float left_drive = throttle + direction;
+		float left_drive = -gamepad1.left_stick_y;
+		float right_drive = -gamepad1.right_stick_y;
 		float left_arm = gamepad2.right_stick_y;
         float arm_drive = gamepad2.left_stick_y;
 
