@@ -113,6 +113,7 @@ public class JakeMearsK9TeleOpServos extends OpMode {
 		motorRight.setDirection(DcMotor.Direction.REVERSE);
 		leftArm.setDirection(DcMotor.Direction.REVERSE);
         arm_extend = hardwareMap.dcMotor.get("arm_drive");
+		arm_extend.setDirection(DcMotor.Direction.REVERSE);
 
 		armservo = hardwareMap.servo.get("servo_1");
 		claw = hardwareMap.servo.get("servo_6");
@@ -210,7 +211,6 @@ public class JakeMearsK9TeleOpServos extends OpMode {
         telemetry.addData("claw", "claw:  " + String.format("%.2f", clawPosition));
         telemetry.addData("left_drive tgt pwr",  "left_drive  pwr: " + String.format("%.2f", left_drive));
         telemetry.addData("right_drive tgt pwr", "right_drive pwr: " + String.format("%.2f", right_drive));
-		telemetry.addData("arm tgt pwr", "arm pwr: " + String.format("%.2f", left_arm));
 
 	}
 
