@@ -42,7 +42,7 @@ public class EncoderK9TeleOpServos extends OpMode {
 	final static int ENCODER_CPR = 1440;
 	final static double GEAR_RATIO = 2;
 	final static int WHEEL_DIAMETER = 4;
-	final static int DISTANCE = 84;
+	final static int DISTANCE = 140;
 
 
 	final static double CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
@@ -117,8 +117,8 @@ public class EncoderK9TeleOpServos extends OpMode {
 		motorLeft.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
 		motorRight.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
-		motorLeft.setPower(0.5);
-		motorRight.setPower(0.5);
+		motorLeft.setPower(1);
+		motorRight.setPower(1);
 
 	
 
