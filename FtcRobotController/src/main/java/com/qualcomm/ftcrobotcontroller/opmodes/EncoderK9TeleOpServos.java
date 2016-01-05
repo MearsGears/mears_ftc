@@ -42,7 +42,7 @@ public class EncoderK9TeleOpServos extends OpMode {
 	final static int ENCODER_CPR = 1440;
 	final static double GEAR_RATIO = 2;
 	final static int WHEEL_DIAMETER = 4;
-	final static int DISTANCE = 140;
+	final static int DISTANCE = 180;
 
 
 	final static double CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;

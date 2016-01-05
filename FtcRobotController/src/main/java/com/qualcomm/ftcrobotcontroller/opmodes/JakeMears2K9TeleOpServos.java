@@ -87,7 +87,6 @@ public class JakeMears2K9TeleOpServos extends OpMode {
 
 		//reverse the left motor
 		rightMotor.setDirection(DcMotor.Direction.REVERSE);
-		leftArm.setDirection(DcMotor.Direction.REVERSE);
 
 	}
 
