@@ -63,6 +63,7 @@ public class FtcOpModeRegister implements OpModeRegister {
       manager.register("TicusOp", Ticus_MearsK9TeleOpServos.class);
       manager.register("EncoderTry", EncoderTryMearsK9TeleOpServos.class);
       manager.register("DianeEncoder", DianeEncoderTryMearsK9TeleOpServos.class);
+      manager.register("LindaOp", LindaOpMearsK9TeleOpServos.class);
 
 
    /* manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
