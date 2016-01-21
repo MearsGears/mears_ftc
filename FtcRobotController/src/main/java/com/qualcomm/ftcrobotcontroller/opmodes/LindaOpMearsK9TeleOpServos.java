@@ -31,12 +31,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-public class LindaOpMearsK9TeleOpServos extends OpMode {
+public class LindaOpMearsK9TeleOpServos extends LinearOpMode {
 
 	DcMotor leftMotor;
 	DcMotor rightMotor;
@@ -51,7 +52,7 @@ public class LindaOpMearsK9TeleOpServos extends OpMode {
 		rightMotor.setDirection(DcMotor.Direction.REVERSE);
 
 
-		waitForStart();
+
 
 
 
