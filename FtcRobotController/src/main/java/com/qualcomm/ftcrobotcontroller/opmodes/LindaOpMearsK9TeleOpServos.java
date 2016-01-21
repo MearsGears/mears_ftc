@@ -38,29 +38,23 @@ import com.qualcomm.robotcore.util.Range;
 
 public class LindaOpMearsK9TeleOpServos extends OpMode {
 
+	DcMotor leftMotor;
+	DcMotor rightMotor;
 
-DcMotor leftMotor;
-DcMotor rightMotor;
 
-@Override
-	public void init() {
+	@Override
+	public void runOpMode() throws InterruptedException {
 
 		leftMotor = hardwareMap.dcMotor.get("left_motor");
 		rightMotor = hardwareMap.dcMotor.get("right_motor");
 
 		rightMotor.setDirection(DcMotor.Direction.REVERSE);
 
-}
+
+		waitForStart();
 
 
-@Override
-	public void loop() {
 
-		float leftY = -gamepad1.left_stick_y;
-		float rightY = -gamepad1.right_stick_y;
 
-		leftMotor.setPower(leftY);
-		rightMotor.setPower(rightY);
-
-}
+	}
 }
