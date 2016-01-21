@@ -55,7 +55,7 @@ public class LindaOpMearsK9TeleOpServos extends LinearOpMode {
 		rightMotor.setDirection(DcMotor.Direction.REVERSE);
 
 
-		waitForStart();
+
 
 
 		leftMotor.setPower(0.5);

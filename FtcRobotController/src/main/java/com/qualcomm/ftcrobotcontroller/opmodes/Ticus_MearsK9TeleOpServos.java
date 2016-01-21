@@ -43,8 +43,8 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
     final double RIGHT_OPEN_POSITION = 1.0;
     final double RIGHT_CLOSED_POSITION = 0.5;
 
-    DcMotor leftR;
-    DcMotor rightR;
+    DcMotor leftE;
+    DcMotor rightE;
     DcMotor leftMotor;
     DcMotor rightMotor;
     Servo leftS;
@@ -58,8 +58,8 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
         rightMotor = hardwareMap.dcMotor.get("right_motor");
         leftS = hardwareMap.servo.get("leftS");
         rightS = hardwareMap.servo.get("rightS");
-        leftR = hardwareMap.dcMotor.get("leftR");
-        rightR = hardwareMap.dcMotor.get("rightR");
+        leftE = hardwareMap.dcMotor.get("leftE");
+        rightE = hardwareMap.dcMotor.get("rightE");
 
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
 
@@ -72,14 +72,14 @@ public class Ticus_MearsK9TeleOpServos extends OpMode {
         float leftY = -gamepad1.left_stick_y;
         float rightY = -gamepad1.right_stick_y;
 
-        float rightX = gamepad2.left_stick_y;
-        float leftX = gamepad2.left_stick_y;
+        float rightX = gamepad2.right_stick_y;
+        float leftX = gamepad2.right_stick_y;
 
         leftMotor.setPower(leftY);
         rightMotor.setPower(rightY);
 
-        rightR.setPower(rightX);
-        leftR.setPower(leftX);
+        rightE.setPower(rightX);
+        leftE.setPower(leftX);
 
 
 
