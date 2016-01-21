@@ -31,16 +31,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-public class LindaOpMearsK9TeleOpServos extends OpMode {
+public class LindaOpMearsK9TeleOpServos extends LinearOpMode {
 
+	DcMotor leftR;
+	DcMotor rightR;
 	DcMotor leftMotor;
 	DcMotor rightMotor;
-
+	Servo leftS;
+	Servo rightS;
 
 	@Override
 	public void runOpMode() throws InterruptedException {
@@ -54,7 +58,67 @@ public class LindaOpMearsK9TeleOpServos extends OpMode {
 		waitForStart();
 
 
+		leftMotor.setPower(0.5);
+		rightMotor.setPower(0.5);
+
+		sleep(5000);
+
+		leftMotor.setPower(0.5);
+		rightMotor.setPower(-0.5);
+
+		sleep(1200);
+
+		leftMotor.setPower(0);
+		rightMotor.setPower(0);
+	}
 
 
+
+	final double LEFT_OPEN_POSITION = 0.0;
+	final double LEFT_CLOSED_POSITION = 0.5;
+	final double RIGHT_OPEN_POSITION = 1.0;
+	final double RIGHT_CLOSED_POSITION = 0.5;
+
+
+	@Override
+	public void init() {
+
+		leftMotor = hardwareMap.dcMotor.get("left_motor");
+		rightMotor = hardwareMap.dcMotor.get("right_motor");
+		leftS = hardwareMap.servo.get("leftS");
+		rightS = hardwareMap.servo.get("rightS");
+		leftR = hardwareMap.dcMotor.get("leftR");
+		rightR = hardwareMap.dcMotor.get("rightR");
+
+		rightMotor.setDirection(DcMotor.Direction.REVERSE);
+
+	}
+
+
+	@Override
+	public void loop() {
+
+		float leftY = -gamepad1.left_stick_y;
+		float rightY = -gamepad1.right_stick_y;
+
+		float rightX = gamepad2.left_stick_y;
+		float leftX = gamepad2.left_stick_y;
+
+		leftMotor.setPower(leftY);
+		rightMotor.setPower(rightY);
+
+		rightR.setPower(rightX);
+		leftR.setPower(leftX);
+
+
+
+		if (gamepad2.left_bumper) {
+			leftS.setPosition(LEFT_OPEN_POSITION);
+			rightS.setPosition(RIGHT_OPEN_POSITION);
+		}
+		if(gamepad2.right_bumper) {
+			leftS.setPosition(LEFT_CLOSED_POSITION);
+			rightS.setPosition(RIGHT_CLOSED_POSITION);
+		}
 	}
 }
